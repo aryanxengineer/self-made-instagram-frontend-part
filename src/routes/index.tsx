@@ -5,7 +5,7 @@ const Home = lazy(() => import('@/app/home/page'));
 const Profile = lazy(() => import('@/app/profile/page'));
 
 
-export const appRoutes = [
+export const homeRoutes = [
   {
     title: 'Home Page',
     path: '/',
