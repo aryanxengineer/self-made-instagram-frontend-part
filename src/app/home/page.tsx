@@ -1,12 +1,13 @@
 import HomeStory from "@/components/modules/story/HomeStory"
+import ReelCard from "@/components/ReelCard"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Heart, Plus } from "lucide-react"
 
 
 const Home = () => {
-  return (
-    <div className="relative w-full h-screen bg-gray-800 text-white">
-      <header className="fixed top-0 z-50 w-full h-10 bg-black flex justify-between items-center px-5">
+  return (<>
+    <div className="relative w-full h-screen text-white bg-black">
+      <header className="fixed top-0 z-50 w-full h-10 flex justify-between bg-black items-center px-5">
         <div>
           <h3>Instagram</h3>
         </div>
@@ -36,14 +37,31 @@ const Home = () => {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </section>
-        
+
         {/* All Reels are showing here randomly to user */}
-        <section className="w-full h-screen bg-amber-800">
-                jklsjlkdjk
+        <section className="w-full min-h-screen bg-black flex flex-col gap-4">
+          <ReelCard />
+          <ReelCard />
+
+
+          <footer className="min-h-32">
+            <pre>
+              lskdjf
+              sdlfjsd
+              asldfjlsd
+              asldfjlsd
+            </pre>
+          </footer>
+          {/* <ScrollBar orientation="vertical" /> */}
         </section>
 
+
+
       </main>
+
+
     </div>
+  </>
   )
 }
 

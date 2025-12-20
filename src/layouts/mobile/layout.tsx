@@ -12,13 +12,13 @@ const layout = () => {
   ];
 
   return (
-    <div className="relative max-w-xl h-screen bg-gray-800">
+    <div className="relative max-w-xl h-screen bg-black">
       <Outlet />
-      <nav className="fixed z-50 bottom-0 w-full h-12 py-3 px-10 bg-black flex justify-between items-center">
+      <nav className="fixed z-50 bottom-0 left-0 right-0 w-full h-12 bg-black py-3 px-5 flex justify-between items-center gap-4">
 
         {mobileNavIcons.map(({ id, Icon }) => (
           <span key={id}>
-            <Icon size={24} color="white" />
+            <Icon size={18} color="white" />
           </span>
         ))}
       </nav>
