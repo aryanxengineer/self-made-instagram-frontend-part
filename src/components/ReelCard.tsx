@@ -31,7 +31,7 @@ const ReelCard = () => {
                     <MoreHorizontal size={16} color="gray" />
                 </CardAction>
             </CardHeader>
-            <CardContent className="min-h-36 max-h-96">
+            <CardContent className="min-h-36">
                 <img src="https://images.unsplash.com/photo-1527275307199-15dbf3ce91c5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGluc3RhZ3JhbSUyMHBvc3QlMjBmcmVlJTIwaW1hZ2VzfGVufDB8fDB8fHww" alt="" />
             </CardContent>
             <CardFooter className="flex flex-col items-start min-h-10">
@@ -53,10 +53,10 @@ const ReelCard = () => {
                 </p>
                 <span className="px-5 text-[9px] leading-none py-1">
                     View all 45 comments
-                </span>                
+                </span>
                 <span className="px-5 text-[9px] leading-none">
                     10 December | See Translation
-                </span>                
+                </span>
 
             </CardFooter>
         </Card>

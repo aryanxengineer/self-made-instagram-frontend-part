@@ -2,7 +2,7 @@
 import { lazy } from 'react';
 
 const Home = lazy(() => import('@/app/home/page'));
-const Profile = lazy(() => import('@/app/profile/page'));
+const ReelPage = lazy(() => import('@/app/reels/page'));
 
 
 export const homeRoutes = [
@@ -12,9 +12,9 @@ export const homeRoutes = [
     element: <Home />,
   },
   {
-    title: 'Profile Page',
-    path: '/profile',
-    element: <Profile />,
+    title: 'Reels',
+    path: '/reels',
+    element: <ReelPage />,
   },
 
 ];

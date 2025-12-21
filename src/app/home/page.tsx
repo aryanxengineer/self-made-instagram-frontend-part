@@ -1,65 +1,61 @@
-import HomeStory from "@/components/modules/story/HomeStory"
 import ReelCard from "@/components/ReelCard"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Heart, Plus } from "lucide-react"
+import StoryHeader from "./components/StoryHeader"
+import { useState } from "react";
+import HeaderInstaPopup from "./components/popups/HeaderInstaPopup";
+import { addPostStory, headerInsta } from "@/assets/data/popups";
 
 
 const Home = () => {
+
+  const [headerInstaPopup, setHeaderInstaPopup] = useState<boolean>(false);
+  const [headerPlusPopup, setHeaderPlusPopup] = useState<boolean>(false);
+
+
   return (<>
     <div className="relative w-full h-screen text-white bg-black">
       <header className="fixed top-0 z-50 w-full h-10 flex justify-between bg-black items-center px-5">
-        <div>
-          <h3>Instagram</h3>
+        <div className="relative">
+          <h3 onClick={() => setHeaderInstaPopup((prev: boolean): boolean => !prev)}>Instagram</h3>
+          <div className={`${headerInstaPopup ? 'block' : 'hidden'} absolute -bottom-28 rounded-md h-24 w-40 bg-gray-800`}>
+
+            {
+              headerInsta.map(({ name, Icon }, index) => {
+                return <HeaderInstaPopup key={index} name={name} Icon={<Icon />} />
+              })
+            }
+
+          </div>
         </div>
-        <div className="flex items-center gap-5">
-          <span>
+        <div className="relative flex items-center gap-5">
+          <span onClick={() => setHeaderPlusPopup(prev => !prev)}>
             <Plus size={24} color="white" />
           </span>
           <span>
             <Heart size={24} color="white" />
           </span>
+          <div className={`${headerPlusPopup ? 'block' : 'hidden'} absolute -bottom-28 right-2 rounded-md h-24 w-40 bg-gray-800`}>
+
+            {
+              addPostStory.map(({ name, Icon }, index) => {
+                return <HeaderInstaPopup key={index} name={name} Icon={<Icon />} />
+              })
+            }
+
+          </div>
         </div>
       </header>
 
-
-      <main className="w-full pt-12">
-        <section >
-          <ScrollArea className="w-full h-fit">
-            <div className="flex w-max space-x-4 p-2">
-              {
-                [...Array(10)].map((_, index) => (
-                  <div key={index} className="inline-block mx-2">
-                    <HomeStory />
-                  </div>
-                ))
-              }
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </section>
-
-        {/* All Reels are showing here randomly to user */}
+      <main onClick={() => {
+        setHeaderInstaPopup(() => false);
+        setHeaderPlusPopup(() => false);
+      }} className="w-full pt-12">
+        <StoryHeader />
         <section className="w-full min-h-screen bg-black flex flex-col gap-4">
           <ReelCard />
           <ReelCard />
-
-
-          <footer className="min-h-32">
-            <pre>
-              lskdjf
-              sdlfjsd
-              asldfjlsd
-              asldfjlsd
-            </pre>
-          </footer>
-          {/* <ScrollBar orientation="vertical" /> */}
         </section>
-
-
-
       </main>
-
-
     </div>
   </>
   )
