@@ -1,5 +1,4 @@
 import { Dot, MoreHorizontal, Heart, MessageCircle, Send, Bookmark } from "lucide-react"
-import ReelProfileIcon from "./modules/reel/ReelProfileIcon"
 import {
     Card,
     CardHeader,
@@ -8,13 +7,17 @@ import {
     CardAction,
     CardContent,
 } from "./ui/card"
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar"
 
 const ReelCard = () => {
     return (
-        <Card className="py-1 bg-black min-h-20">
+        <Card className="py-2 bg-black min-h-20 px-2">
             <CardHeader className="flex justify-between items-center">
                 <div className="flex gap-3 items-center">
-                    <ReelProfileIcon />
+                    <Avatar className="size-10">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
                     <CardTitle className="flex flex-col text-xs">
                         <div className="flex items-center">
                             <span>username</span>
@@ -36,7 +39,7 @@ const ReelCard = () => {
             </CardContent>
             <CardFooter className="flex flex-col items-start min-h-10">
                 <div className="w-full py-3 px-5 flex justify-between items-center leading-none">
-                    <div className="flex gap-2.5 items-center ">
+                    <div className="flex gap-2.5 items-center">
                         <Heart size={19} color="white" />
                         <MessageCircle size={16} color="white" />
                         <Send size={16} color="white" />

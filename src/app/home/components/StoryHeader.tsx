@@ -6,7 +6,7 @@ const StoryHeader = () => {
     return (
         <section >
             <ScrollArea className="w-full h-fit">
-                <div className="flex w-max space-x-4 p-2">
+                <div className="flex w-max space-x-4 px-4">
                     {
                         [...Array(10)].map((_, index) => (
                             <div key={index} className="inline-block mx-2">

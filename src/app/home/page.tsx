@@ -12,8 +12,8 @@ const Home = () => {
   const [headerPlusPopup, setHeaderPlusPopup] = useState<boolean>(false);
 
 
-  return (<>
-    <div className="relative w-full h-screen text-white bg-black">
+  return (
+    <div className="relative w-full h-full">
       <header className="fixed top-0 z-50 w-full h-10 flex justify-between bg-black items-center px-5">
         <div className="relative">
           <h3 onClick={() => setHeaderInstaPopup((prev: boolean): boolean => !prev)}>Instagram</h3>
@@ -49,15 +49,15 @@ const Home = () => {
       <main onClick={() => {
         setHeaderInstaPopup(() => false);
         setHeaderPlusPopup(() => false);
-      }} className="w-full pt-12">
+      }} className="w-full pt-20">
         <StoryHeader />
-        <section className="w-full min-h-screen bg-black flex flex-col gap-4">
+        <section className="w-full min-h-screen flex flex-col gap-4 pt-5">
           <ReelCard />
           <ReelCard />
         </section>
       </main>
     </div>
-  </>
+
   )
 }
 

@@ -1,11 +1,15 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+
 
 const HomeStory = () => {
   return (
-    <div className="flex flex-col gap-2 justify-center items-center text-white">
-      <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-500 flex items-center justify-center">
-        <img src="./profile.jpg" alt="" />
-      </div>
-      <h5 className="text-[9px]">username</h5>
+    <div className="flex flex-col items-center gap-2">
+      <Avatar className="size-20">
+        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+      <span className="text-[9px]">username</span>
     </div>
   )
 }

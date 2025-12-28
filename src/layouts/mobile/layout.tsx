@@ -4,7 +4,7 @@ import mobileNavData from "@/assets/data/mobileNavData";
 const layout = ({ width }: { width: number }) => {
 
   return (
-    <div className={`relative max-w-[${width}px] h-screen bg-gray-900 text-white`}>
+    <div className={`relative max-w-[${width}px] h-screen bg-black text-white`}>
       <div className="w-full h-full overflow-y-auto">
         <Outlet />
       </div>
