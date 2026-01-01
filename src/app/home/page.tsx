@@ -4,6 +4,7 @@ import StoryHeader from "./components/StoryHeader"
 import { useState } from "react";
 import HeaderInstaPopup from "./components/popups/HeaderInstaPopup";
 import { addPostStory, headerInsta } from "@/assets/data/popups";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
@@ -32,7 +33,8 @@ const Home = () => {
             <Plus size={24} color="white" />
           </span>
           <span>
-            <Heart size={24} color="white" />
+            <Link to={'/activities'}>
+              <Heart size={24} color="white" /></Link>
           </span>
           <div className={`${headerPlusPopup ? 'block' : 'hidden'} absolute -bottom-28 right-2 rounded-md h-24 w-40 bg-gray-800`}>
 
