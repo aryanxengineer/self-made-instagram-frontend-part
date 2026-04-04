@@ -1,48 +1,125 @@
-import { createSlice, type ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   signupUser,
   signinUser,
-  signoutSingleDevice,
+  authenticUser,
   signoutAllDevices,
+  signoutSingleDevice,
 } from "./authActions";
+import type { AuthState } from "@/@types/auth.types";
 
-type UserResponseType = {
-  id: string;
-  name: string;
-  email: string;
-};
 
-interface InitialStateType {
-  loading: boolean;
-  success: boolean;
-  message: string;
-  user: UserResponseType | null;
-}
-
-const initialState: InitialStateType = {
-  loading: false,
-  success: false,
-  message: "",
+const initialState: AuthState = {
   user: null,
+  isAuthenticated: false,
+
+  isLoading: true, // important for /me bootstrapping
+  error: null,
+
+  loginLoading: false,
+  signupLoading: false,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
-  extraReducers: (builder: ActionReducerMapBuilder<InitialStateType>) => {
+  reducers: {
+    clearAuthState: (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.error = null;
+      state.isLoading = false;
+      state.loginLoading = false;
+      state.signupLoading = false;
+    },
+  },
+  extraReducers: (builder) => {
     builder
+
+      // =========================
+      // SIGNUP
+      // =========================
       .addCase(signupUser.pending, (state) => {
-        state.loading = true;
-        state.message = "signing up...";
+        state.signupLoading = true;
+        state.error = null;
       })
-      .addCase(signupUser.rejected, (state, action) => {
-        state.loading = false;
-        state.message = (action.payload as undefined) || "Signup failed";
+      .addCase(signupUser.fulfilled, (state, action) => {
+        state.signupLoading = false;
+        state.user = action.payload.data;
+        state.isAuthenticated = true;
       })
-      .addCase(signupUser.fulfilled, (state) => {
-        state.loading = false;
-        state.message = "Signup failed";
+      .addCase(signupUser.rejected, (state) => {
+        state.signupLoading = false;
+        state.error = "Signup failed";
+      })
+
+      // =========================
+      // SIGNIN
+      // =========================
+      .addCase(signinUser.pending, (state) => {
+        state.loginLoading = true;
+        state.error = null;
+      })
+      .addCase(signinUser.fulfilled, (state, action) => {
+        state.loginLoading = false;
+        state.user = action.payload.data;
+        state.isAuthenticated = true;
+      })
+      .addCase(signinUser.rejected, (state) => {
+        state.loginLoading = false;
+        state.error = "Login failed";
+      })
+
+      // =========================
+      // AUTHENTICATE USER (/me)
+      // =========================
+      .addCase(authenticUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(authenticUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.data;
+        state.isAuthenticated = true;
+      })
+      .addCase(authenticUser.rejected, (state) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+
+      // =========================
+      // LOGOUT SINGLE DEVICE
+      // =========================
+      .addCase(signoutSingleDevice.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signoutSingleDevice.fulfilled, (state) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(signoutSingleDevice.rejected, (state) => {
+        state.isLoading = false;
+        state.error = "Logout failed";
+      })
+
+      // =========================
+      // LOGOUT ALL DEVICES
+      // =========================
+      .addCase(signoutAllDevices.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(signoutAllDevices.fulfilled, (state) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(signoutAllDevices.rejected, (state) => {
+        state.isLoading = false;
+        state.error = "Logout from all devices failed";
       });
   },
 });
+
+export const { clearAuthState } = authSlice.actions;
+export default authSlice.reducer;
