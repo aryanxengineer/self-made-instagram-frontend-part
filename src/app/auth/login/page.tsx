@@ -10,13 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
+import { signinUser } from "@/features/auth/authActions";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { toast } from "sonner";
 
 // ----------------------
 // Validation Schema
@@ -41,6 +40,11 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  console.log(user);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,22 +53,14 @@ const Login = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    let type: "email" | "phone" | "username" = "username";
-
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.identifier)) {
-      type = "email";
-    } else if (/^[6-9]\d{9}$/.test(data.identifier)) {
-      type = "phone";
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      console.log(data);
+      await dispatch(signinUser(data)).unwrap();
+      toast.success("User signup successfully");
+    } catch (err: any) {
+      toast.error(err || "Signup failed");
     }
-
-    const payload = {
-      identifier: data.identifier,
-      type,
-      password: data.password,
-    };
-
-    console.log("LOGIN PAYLOAD:", payload);
   }
 
   return (
@@ -144,7 +140,10 @@ const Login = () => {
             Login
           </Button>
           <p className="text-sm text-muted-foreground">
-            If you don't have an account? <Link className="text-gray-800 hover:underline" to={"/register"}>Register</Link>
+            If you don't have an account?{" "}
+            <Link className="text-gray-800 hover:underline" to={"/register"}>
+              Register
+            </Link>
           </p>
         </CardFooter>
       </Card>

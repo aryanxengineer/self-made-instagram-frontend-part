@@ -13,7 +13,7 @@ const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
 
-  isLoading: true, // important for /me bootstrapping
+  isLoading: true,
   error: null,
 
   loginLoading: false,

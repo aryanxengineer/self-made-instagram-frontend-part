@@ -1,6 +1,7 @@
-import type { SignupInputType, UserResponseType } from "@/@types/auth.types";
+import type { SigninInputType, SignupInputType } from "@/@types/auth.types";
 import axiosInstance from "@/helpers/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import type { UserResponseType } from "@/@types/auth.types";
 
 /*===================
     signup Action
@@ -26,7 +27,7 @@ export const signupUser = createAsyncThunk<UserResponseType, SignupInputType>(
 /*===================
     signin Action
 ===================*/
-export const signinUser = createAsyncThunk<UserResponseType, SignupInputType>(
+export const signinUser = createAsyncThunk<UserResponseType, SigninInputType>(
   "auth/signin",
   async (signinInput, { rejectWithValue }) => {
     try {

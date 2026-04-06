@@ -23,7 +23,12 @@ export type SignupInputType = {
   email?: string;
   phoneNumber?: string;
   password: string;
-  dateOfBirth: Date;
-  profilePicture?: string | null;
+  dateOfBirth: Date | string;
   gender: number;
 };
+
+
+export type SigninInputType = {
+  identifier: string;
+  password: string;
+}
