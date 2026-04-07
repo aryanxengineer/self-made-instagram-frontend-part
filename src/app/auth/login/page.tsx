@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signinUser } from "@/features/auth/authActions";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { toast } from "sonner";
 
 // ----------------------
@@ -40,10 +40,9 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  console.log(user);
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,6 +57,7 @@ const Login = () => {
       console.log(data);
       await dispatch(signinUser(data)).unwrap();
       toast.success("User signup successfully");
+      navigate('/chat');
     } catch (err: any) {
       toast.error(err || "Signup failed");
     }

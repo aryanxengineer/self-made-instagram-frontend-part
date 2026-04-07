@@ -8,14 +8,11 @@ import {
 } from "./authActions";
 import type { AuthState } from "@/@types/auth.types";
 
-
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
-
   isLoading: true,
   error: null,
-
   loginLoading: false,
   signupLoading: false,
 };
@@ -64,6 +61,7 @@ const authSlice = createSlice({
         state.loginLoading = false;
         state.user = action.payload.data;
         state.isAuthenticated = true;
+        localStorage.setItem("id", action.payload.data.id);
       })
       .addCase(signinUser.rejected, (state) => {
         state.loginLoading = false;

@@ -1,4 +1,3 @@
-
 import {
   Sidebar,
   SidebarContent,
@@ -8,27 +7,37 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-} from "@/components/ui/sidebar"
-import { sidebarItems } from "@/configs/sidebar"
-import { Link, useLocation } from "react-router-dom"
+} from "@/components/ui/sidebar";
+import { sidebarItems, chatSidebarItems } from "@/configs/sidebar";
+import { Link, useLocation } from "react-router-dom";
 
 export function AppSidebar() {
-    const { pathname } = useLocation()
+  const { pathname } = useLocation();
+
+  const isChat = pathname.endsWith("/chat");
+  let items;
+
+  if (isChat) {
+    items = chatSidebarItems;
+  } else {
+    items = sidebarItems;
+  }
 
   return (
     <Sidebar collapsible="icon" className="border-r">
-      
       {/* LOGO */}
       <SidebarHeader className="h-16 flex items-center px-4 text-xl font-semibold">
-        Instagram
+        {
+          isChat ? "Conversations" : "Edvora"
+        }
       </SidebarHeader>
 
       {/* MAIN NAV */}
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {sidebarItems.map((item) => {
-              const isActive = pathname === item.url
+            {items.map((item) => {
+              const isActive = pathname === item.url;
 
               return (
                 <SidebarMenuItem key={item.title}>
@@ -43,7 +52,7 @@ export function AppSidebar() {
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              )
+              );
             })}
           </SidebarMenu>
         </SidebarGroup>
@@ -53,7 +62,10 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton
+              asChild
+              className="justify-start gap-4 px-4 py-3"
+            >
               <Link to="/settings">
                 <span>Settings</span>
               </Link>
@@ -62,5 +74,5 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
