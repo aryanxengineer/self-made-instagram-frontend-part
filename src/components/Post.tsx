@@ -4,11 +4,27 @@ import { Button } from "@/components/ui/button";
 import { MessageCircle, Send, Bookmark, MoreHorizontal } from "lucide-react";
 import Like from "@/components/Like";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { comment } from "@/features/comments/commentActions";
 import { toast } from "sonner";
+import type { PostType } from "@/@types/post";
+import { likes } from "@/features/likes/likeActions";
 
-export default function PostCard() {
+export default function PostCard({ post }: { post: PostType }) {
+  const {
+    _id,
+    profileId,
+    image,
+    authorUsernameSnapshot,
+    authorAvatar,
+    caption,
+    title,
+    visibility,
+    createdAt,
+  } = post;
+
+  const newAvatar = authorAvatar ?? authorUsernameSnapshot[0].toUpperCase();
+
   const dispatch = useAppDispatch();
   const {} = useAppSelector((state) => state.like);
 
@@ -23,10 +39,13 @@ export default function PostCard() {
       setCommentData("");
       toast.success("Comment successfully posted");
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong")
+      toast.error(error.message || "Something went wrong");
     }
-
   };
+
+  useEffect(() => {
+    dispatch(likes(_id));
+  }, []);
 
   return (
     <div className="flex justify-center w-full p-2 sm:p-4">
@@ -36,12 +55,14 @@ export default function PostCard() {
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-3">
               <Avatar className="h-10 w-10">
-                <AvatarImage src="https://i.pravatar.cc/150?img=3" />
-                <AvatarFallback>U</AvatarFallback>
+                <AvatarImage src={newAvatar} />
+                <AvatarFallback>{newAvatar}</AvatarFallback>
               </Avatar>
               <div>
-                <p className="text-sm font-semibold">john_doe</p>
-                <p className="text-xs text-gray-500">New York, USA</p>
+                <p className="text-sm font-semibold">
+                  {authorUsernameSnapshot}
+                </p>
+                <p className="text-xs text-gray-500"></p>
               </div>
             </div>
             <MoreHorizontal className="h-5 w-5 cursor-pointer" />
@@ -50,8 +71,8 @@ export default function PostCard() {
           {/* Image */}
           <div className="w-full aspect-square overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d"
-              className="w-full h-full object-cover"
+              src={image.url}
+              className="w-full h-full object-contain"
               alt="post"
             />
           </div>
@@ -59,7 +80,7 @@ export default function PostCard() {
           {/* Actions */}
           <div className="flex items-center justify-between px-4 py-3">
             <div className="flex items-center gap-4">
-              <Like postId={"69d75d59c3388d849ae6a36c"} />
+              <Like postId={_id} />
               <Button variant="ghost" size="icon">
                 <MessageCircle className="h-6 w-6" />
               </Button>
@@ -80,12 +101,12 @@ export default function PostCard() {
 
           {/* Caption */}
           <div className="px-4 py-2 text-sm">
-            <span className="font-semibold mr-2">john_doe</span>
-            Exploring the world 🌍✨ This is a beautiful day to capture moments.
+            <span className="font-semibold mr-2">{authorUsernameSnapshot}</span>
+            {caption ?? title ?? "No caption"}
           </div>
 
           {/* Time */}
-          <div className="px-4 py-2 text-xs text-gray-400">2 hours ago</div>
+          <div className="px-4 py-2 text-xs text-gray-400">{}</div>
 
           {/* Add Comment */}
           <div className="flex items-center border-t px-4 py-2">

@@ -4,6 +4,7 @@ import authReducer from "@/features/auth/authSlice";
 import postReducer from "@/features/posts/postSlice";
 import profileReducer from "@/features/profiles/profileSlice";
 import likeReducer from "@/features/likes/likeSlice";
+import feedReducer from "@/features/feed/feedSlice";
 
 export const reduxStore = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const reduxStore = configureStore({
     post: postReducer,
     profile: profileReducer,
     like: likeReducer,
+    feed: feedReducer,
   },
 });
 
