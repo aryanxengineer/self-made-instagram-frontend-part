@@ -8,20 +8,13 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { sidebarItems, chatSidebarItems } from "@/configs/sidebar";
+import { sidebarItems } from "@/configs/sidebar";
 import { Link, useLocation } from "react-router-dom";
 
 export function AppSidebar() {
   const { pathname } = useLocation();
 
   const isChat = pathname.endsWith("/chat");
-  let items;
-
-  if (isChat) {
-    items = chatSidebarItems;
-  } else {
-    items = sidebarItems;
-  }
 
   return (
     <Sidebar collapsible="icon" className="border-r">
@@ -36,7 +29,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {items.map((item) => {
+            {sidebarItems.map((item) => {
               const isActive = pathname === item.url;
 
               return (

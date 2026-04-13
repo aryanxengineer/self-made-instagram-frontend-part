@@ -33,4 +33,9 @@ export const protectedRoutes = [
     path: "/profile",
     element: <Profile />,
   },
+  {
+    title: "Profile",
+    path: "/profile/:profileId",
+    element: <Profile />,
+  },
 ];

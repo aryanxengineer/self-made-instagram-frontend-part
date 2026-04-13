@@ -2,11 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "@/features/auth/authSlice";
 import postReducer from "@/features/posts/postSlice";
+import profileReducer from "@/features/profiles/profileSlice";
+import likeReducer from "@/features/likes/likeSlice";
 
 export const reduxStore = configureStore({
   reducer: {
     auth: authReducer,
     post: postReducer,
+    profile: profileReducer,
+    like: likeReducer,
   },
 });
 

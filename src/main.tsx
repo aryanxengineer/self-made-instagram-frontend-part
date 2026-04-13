@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
@@ -12,16 +11,14 @@ import { reduxStore } from "./store/reduxStore.ts";
 export let isAuthenticated = true;
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-        <TooltipProvider>
-          <Provider store={reduxStore}>
-            <App />
-          </Provider>
-          <Toaster position="bottom-right" richColors />
-        </TooltipProvider>
-      </ThemeProvider>
-    </BrowserRouter>
-  </StrictMode>,
+  <BrowserRouter>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <TooltipProvider>
+        <Provider store={reduxStore}>
+          <App />
+        </Provider>
+        <Toaster position="top-center" richColors />
+      </TooltipProvider>
+    </ThemeProvider>
+  </BrowserRouter>,
 );

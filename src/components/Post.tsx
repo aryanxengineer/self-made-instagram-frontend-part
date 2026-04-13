@@ -1,195 +1,107 @@
-// import React, { useMemo, useState } from "react";
-// import { Card, CardContent, CardHeader } from "@/components/ui/card";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-// import { Button } from "@/components/ui/button";
-// import { Badge } from "@/components/ui/badge";
-// import { Heart, MessageCircle, Share2, Bookmark } from "lucide-react";
-// import { formatDistanceToNow } from "date-fns";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { MessageCircle, Send, Bookmark, MoreHorizontal } from "lucide-react";
+import Like from "@/components/Like";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useState } from "react";
+import { comment } from "@/features/comments/commentActions";
+import { toast } from "sonner";
 
-// /**
-//  * PostCard (Production-ready defensive + interactive)
-//  * - Handles undefined/null post safely
-//  * - Provides loading / empty fallback
-//  * - Adds optimistic UI for like/save
-//  * - Guards all optional fields
-//  */
-// const PostCard = ({ post, isLoading = false }) => {
-//   // ---- Guard: loading state ----
-//   if (isLoading) {
-//     return (
-//       <Card className="w-full max-w-2xl mx-auto animate-pulse">
-//         <CardHeader>
-//           <div className="h-6 w-40 bg-gray-200 rounded" />
-//         </CardHeader>
-//         <CardContent>
-//           <div className="h-48 w-full bg-gray-200 rounded" />
-//         </CardContent>
-//       </Card>
-//     );
-//   }
+export default function PostCard() {
+  const dispatch = useAppDispatch();
+  const {} = useAppSelector((state) => state.like);
 
-//   // ---- Guard: post undefined/null ----
-//   if (!post || typeof post !== "object") {
-//     return (
-//       <Card className="w-full max-w-2xl mx-auto p-4 text-sm text-muted-foreground">
-//         No post data available
-//       </Card>
-//     );
-//   }
+  const [commentData, setCommentData] = useState("");
 
-//   // ---- Safe destructuring with defaults ----
-//   const {
-//     image = {},
-//     authorUsernameSnapshot = "unknown",
-//     likesCount = 0,
-//     commentsCount = 0,
-//     sharesCount = 0,
-//     savesCount = 0,
-//     caption = "",
-//     title = "",
-//     hashtags = [],
-//     mentions = [],
-//     createdAt,
-//   } = post || {};
+  const commentHandler = () => {
+    const postId = "69d75d59c3388d849ae6a36c";
+    const content = commentData;
 
-//   // ---- Derived state (memoized) ----
-//   const timeAgo = useMemo(() => {
-//     if (!createdAt) return "";
-//     try {
-//       return formatDistanceToNow(new Date(createdAt)) + " ago";
-//     } catch {
-//       return "";
-//     }
-//   }, [createdAt]);
+    try {
+      dispatch(comment({ postId, content }));
+      setCommentData("");
+      toast.success("Comment successfully posted");
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong")
+    }
 
-//   // ---- Local UI state (optimistic interactions) ----
-//   const [liked, setLiked] = useState(false);
-//   const [saved, setSaved] = useState(false);
-//   const [likes, setLikes] = useState(likesCount);
+  };
 
-//   const handleLike = () => {
-//     setLiked((prev) => !prev);
-//     setLikes((prev) => (liked ? prev - 1 : prev + 1));
-//     // TODO: trigger backend mutation (optimistic update)
-//   };
+  return (
+    <div className="flex justify-center w-full p-2 sm:p-4">
+      <Card className="w-full max-w-xl rounded-2xl shadow-md border ">
+        <CardContent className="p-0">
+          {/* Header */}
+          <div className="flex items-center justify-between p-4">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src="https://i.pravatar.cc/150?img=3" />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm font-semibold">john_doe</p>
+                <p className="text-xs text-gray-500">New York, USA</p>
+              </div>
+            </div>
+            <MoreHorizontal className="h-5 w-5 cursor-pointer" />
+          </div>
 
-//   const handleSave = () => {
-//     setSaved((prev) => !prev);
-//     // TODO: backend sync
-//   };
+          {/* Image */}
+          <div className="w-full aspect-square overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d"
+              className="w-full h-full object-cover"
+              alt="post"
+            />
+          </div>
 
-//   return (
-//     <Card className="w-full max-w-2xl mx-auto shadow-md rounded-2xl">
-//       {/* Header */}
-//       <CardHeader className="flex flex-row items-center justify-between">
-//         <div className="flex items-center gap-3">
-//           <Avatar>
-//             <AvatarImage src={image?.url || ""} />
-//             <AvatarFallback>
-//               {authorUsernameSnapshot?.[0]?.toUpperCase() || "U"}
-//             </AvatarFallback>
-//           </Avatar>
-//           <div>
-//             <p className="font-semibold text-sm">
-//               {authorUsernameSnapshot}
-//             </p>
-//             <p className="text-xs text-muted-foreground">{timeAgo}</p>
-//           </div>
-//         </div>
-//       </CardHeader>
+          {/* Actions */}
+          <div className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center gap-4">
+              <Like postId={"69d75d59c3388d849ae6a36c"} />
+              <Button variant="ghost" size="icon">
+                <MessageCircle className="h-6 w-6" />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Send className="h-6 w-6" />
+              </Button>
+            </div>
 
-//       {/* Image */}
-//       {image?.url && (
-//         <div className="w-full aspect-video overflow-hidden">
-//           <img
-//             src={image.url}
-//             alt={title || "post image"}
-//             loading="lazy"
-//             className="w-full h-full object-cover"
-//           />
-//         </div>
-//       )}
+            <Button variant="ghost" size="icon">
+              <Bookmark className="h-6 w-6" />
+            </Button>
+          </div>
 
-//       {/* Content */}
-//       <CardContent className="space-y-3">
-//         {title && <h2 className="font-semibold text-lg">{title}</h2>}
-//         {caption && (
-//           <p className="text-sm text-gray-700">{caption}</p>
-//         )}
+          {/* Likes */}
+          <div className="px-4">
+            <p className="text-sm font-semibold">1,234 likes</p>
+          </div>
 
-//         {/* Hashtags */}
-//         {hashtags.length > 0 && (
-//           <div className="flex flex-wrap gap-2">
-//             {hashtags.map((tag, idx) => (
-//               <Badge key={idx} variant="secondary">
-//                 {tag}
-//               </Badge>
-//             ))}
-//           </div>
-//         )}
+          {/* Caption */}
+          <div className="px-4 py-2 text-sm">
+            <span className="font-semibold mr-2">john_doe</span>
+            Exploring the world 🌍✨ This is a beautiful day to capture moments.
+          </div>
 
-//         {/* Mentions */}
-//         {mentions.length > 0 && (
-//           <div className="flex flex-wrap gap-2">
-//             {mentions.map((mention, idx) => (
-//               <span key={idx} className="text-sm text-blue-500">
-//                 @{mention}
-//               </span>
-//             ))}
-//           </div>
-//         )}
+          {/* Time */}
+          <div className="px-4 py-2 text-xs text-gray-400">2 hours ago</div>
 
-//         {/* Actions */}
-//         <div className="flex items-center justify-between pt-3 border-t">
-//           <div className="flex gap-4">
-//             <Button
-//               variant="ghost"
-//               size="sm"
-//               onClick={handleLike}
-//               className="flex gap-1"
-//             >
-//               <Heart
-//                 size={16}
-//                 className={liked ? "fill-red-500 text-red-500" : ""}
-//               />
-//               {likes}
-//             </Button>
-
-//             <Button variant="ghost" size="sm" className="flex gap-1">
-//               <MessageCircle size={16} /> {commentsCount}
-//             </Button>
-
-//             <Button variant="ghost" size="sm" className="flex gap-1">
-//               <Share2 size={16} /> {sharesCount}
-//             </Button>
-//           </div>
-
-//           <Button
-//             variant="ghost"
-//             size="sm"
-//             onClick={handleSave}
-//             className="flex gap-1"
-//           >
-//             <Bookmark
-//               size={16}
-//               className={saved ? "fill-black" : ""}
-//             />
-//             {savesCount}
-//           </Button>
-//         </div>
-//       </CardContent>
-//     </Card>
-//   );
-// };
-
-// export default React.memo(PostCard);
-
-// /**
-//  * ---- Suggested Test Cases (manual / unit) ----
-//  * 1. post = undefined → should NOT crash, show fallback UI
-//  * 2. post = {} → safe defaults render, no errors
-//  * 3. missing image → image section hidden
-//  * 4. missing hashtags/mentions → sections not rendered
-//  * 5. like button → count increments/decrements optimistically
-//  * 6. createdAt invalid → no crash, empty time
-//  */
+          {/* Add Comment */}
+          <div className="flex items-center border-t px-4 py-2">
+            <input
+              type="text"
+              value={commentData}
+              placeholder="Add a comment..."
+              onChange={(e) => setCommentData(e.target.value)}
+              className="flex-1 text-sm outline-none bg-transparent"
+            />
+            <Button onClick={() => commentHandler()} className="px-5">
+              Post
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
