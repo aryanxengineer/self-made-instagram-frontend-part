@@ -5,6 +5,7 @@ import Create from "@/app/create/page";
 import Profile from "@/app/profile/page";
 import Post from "@/app/post/page";
 import Posts from "@/app/posts/page";
+import Search from "@/app/search/page";
 
 export const publicRoutes = [
   {
@@ -49,5 +50,10 @@ export const protectedRoutes = [
     title: "Posts",
     path: "/posts",
     element: <Posts />,
+  },
+  {
+    title: "Search",
+    path: "/search",
+    element: <Search />,
   },
 ];
