@@ -4,19 +4,28 @@ const Footer = () => {
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-xl font-semibold text-center px-2">Edvora</h3>
-        <h5 className="text-md font-semibold text-center px-2">
-          Social Media Platform
-        </h5>
+        <Card className="gap-1">
+          <h3 className="text-xl font-bold text-center px-2 text-green-500 tracking-wider">
+            Edvora
+          </h3>
+          <h5 className="text-md font-semibold text-center px-2">
+            Social Media Platform
+          </h5>
+        </Card>
       </CardHeader>
       <CardContent>
-        <p className="text-xs font-semibold text-center py-5 px-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta,
-          excepturi?
+        <p className="text-xs font-extralight text-center py-5 px-2">
+          edvora, page, content, posts, profile{" "}
+          <span className="text-green-500 font-semibold">
+            <br /> product from zynorix
+          </span>
         </p>
       </CardContent>
-      <CardFooter className="w-full">
-        <p className="text-xs font-extralight w-full text-center">All rights reserved &nbsp 2026 | Edvora - Social learning platform</p>
+    
+      <CardFooter className="w-full border-t">
+        <p className="text-xs font-extralight w-full text-center">
+          All rights reserved | Edvora - Social learning platform
+        </p>
       </CardFooter>
     </Card>
   );

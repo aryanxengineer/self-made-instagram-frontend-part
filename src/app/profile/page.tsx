@@ -19,6 +19,7 @@ const Page = () => {
   const location = useLocation();
 
   const { isLoading, profileData } = useAppSelector((state) => state.profile);
+  const { user } = useAppSelector(state => state.auth)
   const { posts } = useAppSelector((state) => state.post);
   const { isFollowing } = useAppSelector((state) => state.follow);
 
@@ -128,7 +129,7 @@ const Page = () => {
                   </h2>
 
                   <div className="flex justify-center md:justify-start gap-2 w-full md:w-auto">
-                    {location.pathname === "/profile" ? (
+                    {profileData.userId === user?._id ? (
                       <Button size="sm">Edit Profile</Button>
                     ) : (
                       <Button

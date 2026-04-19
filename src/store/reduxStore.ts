@@ -7,6 +7,7 @@ import likeReducer from "@/features/likes/likeSlice";
 import feedReducer from "@/features/feed/feedSlice";
 import commentReducer from "@/features/comments/commentSlice";
 import followReducer from "@/features/follow/followSlice";
+import searchReducer from "@/features/search/searchSlice";
 
 export const reduxStore = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const reduxStore = configureStore({
     feed: feedReducer,
     comment: commentReducer,
     follow: followReducer,
+    search: searchReducer,
   },
 });
 

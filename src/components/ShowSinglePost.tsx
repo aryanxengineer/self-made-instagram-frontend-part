@@ -49,10 +49,15 @@ export default function SinglePost({ post }: { post: any }) {
 
   const commentHandler = () => {
     try {
-      dispatch(comment({ postId: _id, content: commentData }));
-      setCountComments((prev) => prev + 1);
-      setCommentData("");
-      toast.success("Comment successfully posted");
+      if (commentData.trim() !== "") {
+        dispatch(comment({ postId: _id, content: commentData }));
+        setCountComments((prev) => prev + 1);
+        setCommentData("");
+        toast.success("Comment successfully posted");
+        return;
+      }
+
+      toast.info("Text is needed to comment on post");
     } catch (error: any) {
       toast.error(error.message || "Something went wrong");
     }
@@ -194,14 +199,14 @@ export default function SinglePost({ post }: { post: any }) {
 
           {/* LIKES */}
           <div className="px-4">
-            <p className="text-sm font-semibold">{likes} likes</p>
+            <p className="text-sm font-semibold">{Number(likes)} likes</p>
           </div>
 
           {/* TITLE */}
-          <div className="px-4 text-sm font-medium text-gray-900">{title}</div>
+          <div className="px-4 text-sm font-medium">{title}</div>
 
           {/* CAPTION (NEWLINES FIXED) */}
-          <div className="px-4 py-2 text-sm text-gray-700 whitespace-pre-line">
+          <div className="px-4 py-2 text-sm whitespace-pre-line">
             <span
               onClick={() => navigate(`/profile/${profileId}`)}
               className="font-semibold mr-2 cursor-pointer hover:underline"

@@ -19,10 +19,8 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" className="border-r">
       {/* LOGO */}
-      <SidebarHeader className="h-16 flex items-center px-4 text-xl font-semibold">
-        {
-          isChat ? "Conversations" : "Edvora"
-        }
+      <SidebarHeader className="h-16 flex items-center px-4 mt-4 text-xl font-bold tracking-wider text-green-500">
+        Edvora
       </SidebarHeader>
 
       {/* MAIN NAV */}

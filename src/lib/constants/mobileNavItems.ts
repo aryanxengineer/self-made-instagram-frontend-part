@@ -2,15 +2,14 @@ import {
   Home,
   Search,
   Compass,
-  Film,
   PlusSquare,
   User,
 } from "lucide-react"
 
-export const sidebarItems = [
+export const mobileNavItems = [
   { title: "Home", icon: Home, url: "/" },
-  { title: "Search", icon: Search, url: "/search" },
   { title: "Trendings", icon: Compass, url: "/trendings" },
   { title: "Create", icon: PlusSquare, url: "/create" },
+  { title: "Search", icon: Search, url: "/search" },
   { title: "Profile", icon: User, url: "/profile" },
 ]

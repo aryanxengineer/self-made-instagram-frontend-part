@@ -51,7 +51,6 @@ const followSlice = createSlice({
       .addCase(isFollowed.fulfilled, (state: FollowState, action) => {
         state.isLoading = false;
         state.message = action.payload?.message;
-        console.log(action.payload.data.isFollowed)
         state.isFollowing = action.payload.data.isFollowed;
       })
       .addCase(isFollowed.rejected, (state: FollowState, action) => {

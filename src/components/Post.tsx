@@ -55,10 +55,15 @@ export default function PostCard({ post }: { post: any }) {
 
   const commentHandler = () => {
     try {
-      dispatch(comment({ postId: _id, content: commentData }));
-      setCountComments((prev) => prev + 1);
-      setCommentData("");
-      toast.success("Comment successfully posted");
+      if (commentData.trim() !== "") {
+        dispatch(comment({ postId: _id, content: commentData }));
+        setCountComments((prev) => prev + 1);
+        setCommentData("");
+        toast.success("Comment successfully posted");
+        return;
+      }
+
+      toast.info("Text is needed to comment on post");
     } catch (error: any) {
       toast.error(error.message || "Something went wrong");
     }

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/helpers/axiosInstance";
 
-const searchProfile = createAsyncThunk(
+export const searchProfile = createAsyncThunk(
   "search/profile",
   async (query: string, { rejectWithValue }) => {
     try {

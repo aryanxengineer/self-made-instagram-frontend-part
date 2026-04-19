@@ -16,8 +16,6 @@ const Page = () => {
 
   const { postId } = useParams();
 
-  console.log(singlePost)
-
   useEffect(() => {
     if (postId) {
       dispatch(getSinglePost(postId));
