@@ -15,13 +15,14 @@ const Footer = () => {
       </CardHeader>
       <CardContent>
         <p className="text-xs font-extralight text-center py-5 px-2">
-          edvora, page, content, posts, profile{" "}
+          About  Help Press API Jobs Privacy Terms Locations Language Meta
+          Verified
           <span className="text-green-500 font-semibold">
             <br /> product from zynorix
           </span>
         </p>
       </CardContent>
-    
+
       <CardFooter className="w-full border-t">
         <p className="text-xs font-extralight w-full text-center">
           All rights reserved | Edvora - Social learning platform
