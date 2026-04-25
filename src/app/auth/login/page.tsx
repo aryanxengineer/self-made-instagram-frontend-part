@@ -66,7 +66,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-xl rounded-2xl border bg-white/80 backdrop-blur">
+      <Card className="w-full max-w-md shadow-xl rounded-2xl border backdrop-blur">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-semibold tracking-tight">
             Edvora
@@ -150,7 +150,7 @@ const Login = () => {
           </Button>
           <p className="text-sm text-muted-foreground">
             If you don't have an account?{" "}
-            <Link className="text-gray-800 hover:underline" to={"/register"}>
+            <Link className="hover:underline" to={"/register"}>
               Register
             </Link>
           </p>

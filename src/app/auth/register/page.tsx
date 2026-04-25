@@ -55,9 +55,9 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-3 sm:p-4 overflow-hidden">
-      <Card className="w-full h-full max-w-6xl grid grid-cols-1 md:grid-cols-2 shadow-xl sm:shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border bg-white/80 backdrop-blur">
+      <Card className="w-full h-full max-w-6xl grid grid-cols-1 md:grid-cols-2 shadow-xl sm:shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden border backdrop-blur">
         {/* LEFT SIDE (HIDDEN ON MOBILE) */}
-        <div className="hidden md:flex flex-col justify-center items-center bg-linear-to-br from-gray-900 to-gray-700 text-white p-10">
+        <div className="hidden md:flex flex-col justify-center items-center p-10">
           <h2 className="text-3xl font-semibold mb-4">Welcome</h2>
           <p className="text-sm text-gray-300 text-center max-w-xs">
             Create your account and start your journey with a modern experience.
